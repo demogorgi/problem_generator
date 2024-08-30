@@ -19,14 +19,15 @@ Auswahl                    = "Auswahl.tex"                  # Dateiname für bel
 # Liefert das Kürzel für das zu date gehörige Semester
 # z.B. semester(Date.parse("4.5.2019")) -> "SS19" oder semester(Date.parse("7.2.2017") -> WS1718
 def semester(date)
-  ws = date.strftime('%y').to_i
+  year_short = date.strftime('%y')
+  ws = year_short.to_i
   month = date.month
-  if 4 <= month and month < 10
-    "SS#{date.strftime('%y')}"
-  elsif 10 <= month and month <= 12
-    "WS#{ws}#{ws+1}"
-  else 1 <= month and month < 4
-    "WS#{ws-1}#{ws}"
+  if month >= 4 && month < 10
+    "SS#{year_short}"
+  elsif month >= 10 && month <= 12
+    "WS#{ws}#{ws + 1}"
+  elsif month >= 1 && month < 4
+    "WS#{ws - 1}#{ws}"
   end
 end
 
