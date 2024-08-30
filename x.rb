@@ -61,7 +61,11 @@ OptionParser.new do |opts|
   end
 
   opts.on("-p", "--path STRING", String, "Pfad zum Eingabedateienverzeichnis (Bsp.: -p input)") do |p|
-    $OPTS[:path] = File.expand_path(p)
+    if File.directory?(p)
+      $OPTS[:path] = File.expand_path(p)
+    else
+      raise "Das Eingabedatenverzeichnis #{p} existiert nicht."
+    end
   end
 
   opts.on("-o", "--output STRING", String, "Name des erzeugten Latex-Files (Bsp.: -o SchwereKlausur)") do |o|
@@ -100,16 +104,16 @@ OptionParser.new do |opts|
     puts opts
     puts "\nBeispiele:"
     examples = [
-      ["ruby x.rb -p Aufgaben/"                                          , "Erzeugt Verwendungsmatrix aller Aufgaben im Verzeichnis Aufgaben."],
+      ["ruby x.rb -p Aufgaben"                                          , "Erzeugt Verwendungsmatrix aller Aufgaben im Verzeichnis Aufgaben."],
       [""                                                                , "(Die Verwendungsmatrix wird bei jedem erfolgreichen Aufruf erstellt.)"],
-      ["ruby x.rb -p Aufgaben/ -i"                                       , "Erzeugt eine Liste der Typen und Aufgaben."],
-      ["ruby x.rb -p Aufgaben/ -n \".\" -c -x"                           , "Erzeugt <output>/<Auswahl>.pdf mit allen Aufgaben und Lösungen."],
-      ["ruby x.rb -p Aufgaben/ -n \"tching[0-9]*\" -c"                   , "Erzeugt <output>/<Auswahl>.pdf mit allen Aufgaben,"],
+      ["ruby x.rb -p Aufgaben -i"                                       , "Erzeugt eine Liste der Typen und Aufgaben."],
+      ["ruby x.rb -p Aufgaben -n \".\" -c -x"                           , "Erzeugt <output>/<Auswahl>.pdf mit allen Aufgaben und Lösungen."],
+      ["ruby x.rb -p Aufgaben -n \"tching[0-9]*\" -c"                   , "Erzeugt <output>/<Auswahl>.pdf mit allen Aufgaben,"],
       [""                                                                , "deren Name auf /thing[0-9]*$/ matcht."],
-      ["ruby x.rb -p Aufgaben/ -l -t \"Mat\""                            , "Liefert die nächste freie Lücke für Aufgaben des Typs /Mat/."],
-      ["ruby x.rb -p Aufgaben/ -e -n \"tri.*\""                          , "Erzeugt eine Klausur mit den Aufgaben, die auf /tri.*$/ matchen."],
+      ["ruby x.rb -p Aufgaben -l -t \"Mat\""                            , "Liefert die nächste freie Lücke für Aufgaben des Typs /Mat/."],
+      ["ruby x.rb -p Aufgaben -e -n \"tri.*\""                          , "Erzeugt eine Klausur mit den Aufgaben, die auf /tri.*$/ matchen."],
       [""                                                                , "(Vorausgesetzt, das sind genau 5 Stück.)"],
-      ["ruby x.rb -r \"99, 1.1.1900; 101\" -n \"MaxFlow.*\" -p Aufgaben/", "Erzeugt einen Übungszettel mit den Aufgaben, die auf /MaxFlow.*$/ matchen."],
+      ["ruby x.rb -r \"99, 1.1.1900; 101\" -n \"MaxFlow.*\" -p Aufgaben", "Erzeugt einen Übungszettel mit den Aufgaben, die auf /MaxFlow.*$/ matchen."],
       [""                                                                , "(Vorausgesetzt, das sind genau 4 Stück.)"],
       [""                                                                , "99. Serie, Abgabe bis 1.1.1900, Skript wird bis Seite 101 benötigt."]
     ]
