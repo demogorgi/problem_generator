@@ -99,18 +99,25 @@ OptionParser.new do |opts|
   opts.on_tail("-h", "--help", "Diese Hilfe anzeigen") do
     puts opts
     puts "\nBeispiele:"
-    puts "ruby x.rb -p Aufgaben/".ljust(75, " ") + "Erzeugt Verwendungsmatrix aller Aufgaben im Verzeichnis Aufgaben."
-    puts " ".ljust(75, " ") + "(Die Verwendungsmatrix wird bei jedem erfolgreichen Aufruf erstellt.)"
-    puts "ruby x.rb -p Aufgaben/ -i".ljust(75, " ") + "Erzeugt eine Liste der Typen und Aufgaben."
-    puts "ruby x.rb -p Aufgaben/ -n \".\" -c -x".ljust(75, " ") + "Erzeugt <output>/<Auswahl>.pdf mit allen Aufgaben und Lösungen."
-    puts "ruby x.rb -p Aufgaben/ -n \"tching[0-9]*\" -c".ljust(75, " ") + "Erzeugt <output>/<Auswahl>.pdf mit allen Aufgaben,"
-    puts " ".ljust(75, " ") + "deren Name auf /thing[0-9]*$/ matcht."
-    puts "ruby x.rb -p Aufgaben/ -l -t \"Mat\"".ljust(75, " ") + "Liefert die nächste freie Lücke für Aufgaben des Typs /Mat/."
-    puts "ruby x.rb -p Aufgaben/ -e -n \"tri.*\"".ljust(75, " ") + "Erzeugt eine Klausur mit den Aufgaben, die auf /tri.*$/ matchen."
-    puts " ".ljust(75, " ") + "(Vorausgesetzt, das sind genau 5 Stück.)"
-    puts "ruby x.rb -r \"99, 1.1.1900; 101\" -n \"MaxFlow.*\" -p Aufgaben/".ljust(75, " ") + "Erzeugt einen Übungszettel mit den Aufgaben, die auf /MaxFlow.*$/ matchen."
-    puts " ".ljust(75, " ") + "(Vorausgesetzt, das sind genau 4 Stück.)"
-    puts " ".ljust(75, " ") + "99. Serie, Abgabe bis 1.1.1900, Skript wird bis Seite 101 benötigt."
+    examples = [
+      ["ruby x.rb -p Aufgaben/"                                          , "Erzeugt Verwendungsmatrix aller Aufgaben im Verzeichnis Aufgaben."],
+      [""                                                                , "(Die Verwendungsmatrix wird bei jedem erfolgreichen Aufruf erstellt.)"],
+      ["ruby x.rb -p Aufgaben/ -i"                                       , "Erzeugt eine Liste der Typen und Aufgaben."],
+      ["ruby x.rb -p Aufgaben/ -n \".\" -c -x"                           , "Erzeugt <output>/<Auswahl>.pdf mit allen Aufgaben und Lösungen."],
+      ["ruby x.rb -p Aufgaben/ -n \"tching[0-9]*\" -c"                   , "Erzeugt <output>/<Auswahl>.pdf mit allen Aufgaben,"],
+      [""                                                                , "deren Name auf /thing[0-9]*$/ matcht."],
+      ["ruby x.rb -p Aufgaben/ -l -t \"Mat\""                            , "Liefert die nächste freie Lücke für Aufgaben des Typs /Mat/."],
+      ["ruby x.rb -p Aufgaben/ -e -n \"tri.*\""                          , "Erzeugt eine Klausur mit den Aufgaben, die auf /tri.*$/ matchen."],
+      [""                                                                , "(Vorausgesetzt, das sind genau 5 Stück.)"],
+      ["ruby x.rb -r \"99, 1.1.1900; 101\" -n \"MaxFlow.*\" -p Aufgaben/", "Erzeugt einen Übungszettel mit den Aufgaben, die auf /MaxFlow.*$/ matchen."],
+      [""                                                                , "(Vorausgesetzt, das sind genau 4 Stück.)"],
+      [""                                                                , "99. Serie, Abgabe bis 1.1.1900, Skript wird bis Seite 101 benötigt."]
+    ]
+
+    examples.each do |example, description|
+      puts example.ljust(75, " ") + description
+    end
+
     exit
   end
 
